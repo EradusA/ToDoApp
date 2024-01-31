@@ -5,7 +5,7 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Box from "@mui/material/Box";
-import EditIcon from "@mui/icons-material/Edit";
+import EditDialog from "./EditDialogue";
 
 const GenericList = ({
   title,
@@ -36,9 +36,7 @@ const GenericList = ({
                 {item.content}: {readableDate(item)}
               </label>
               <Box>
-                <IconButton onClick={() => editItem()} color="primary">
-                  <EditIcon />
-                </IconButton>
+                <EditDialog item={item} editItem={editItem} />
                 {!item.completed && (
                   <IconButton onClick={() => DelItem(item.id)} color="error">
                     <DeleteIcon />
