@@ -1,41 +1,64 @@
-import React, { useEffect } from "react";
+import { React, useState } from "react";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
+import { IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
+import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
+import DialogContent from "@mui/material/DialogContent";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
-export default function EditDialog({ item, open, onClose }) {
-  useEffect(() => {
-    if (open && inputRef.current) {
-      inputRef.current.focus();
+const EditDialog = ({ editItem, item }) => {
+  const [open, setOpen] = useState(false);
+  const [editedItem, setEditedItem] = useState("");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+    setEditedItem(item.content);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setEditedItem("");
+  };
+
+  const handleEditItem = () => {
+    if (editedItem.trim()) {
+      editItem(item.id, editedItem);
+      handleClose();
     }
-  }, [open, item]);
-
-  useEffect(() => {
-    setInputValue(item || "");
-  }, [item]);
+  };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Edit Item</DialogTitle>
-      <DialogContent>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          label="Item Content"
-          type="text"
-          fullWidth
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={onClose}>Save</Button>
-      </DialogActions>
-    </Dialog>
+    <>
+      <IconButton onClick={handleClickOpen} color="primary">
+        <EditIcon />
+      </IconButton>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Update a task</DialogTitle>
+        <DialogContent>
+          <Box sx={{ "& button": { m: 1 } }}>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              type="text"
+              value={editedItem}
+              onChange={(e) => setEditedItem(e.target.value)}
+              fullWidth
+              margin="normal"
+            />
+            <Button variant="contained" onClick={handleEditItem}>
+              Confirm Edit
+            </Button>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
-}
+};
+
+export default EditDialog;

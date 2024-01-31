@@ -39,8 +39,11 @@ const useToDoList = () => {
     setList(newList);
   };
 
-  const editItem = () => {
-    console.log("Edit item");
+  const editItem = (id, newContent) => {
+    const newList = list.map((item) =>
+      item.id === id ? { ...item, content: newContent } : item
+    );
+    setList(newList);
   };
 
   return {
@@ -50,6 +53,7 @@ const useToDoList = () => {
     addItem,
     delItem,
     updateItem,
+    editItem,
   };
 };
 
