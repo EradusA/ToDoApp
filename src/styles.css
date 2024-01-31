@@ -1,0 +1,22 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  padding-top: 30px;
+  background-image: url(https://source.unsplash.com/random?wallpapers);
+  background-repeat: no-repeat;
+  background-size: cover
+  
+}
+
+.App {
+  font-family: Arial, sans-serif;
+  text-align: left;
+}
+
+.todoItems {
+  list-style: none;
+  
+}
