@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
